@@ -1,0 +1,26 @@
+{
+  "name": "pw_ae_js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test --headed",
+    "cg": "npx playwright codegen",
+    "testc": "npx playwright test --project=chromium --headed",
+    "testf": "npx playwright test --project=firefox --headed",
+    "testw": "npx playwright test --project=firefox --headed",
+    "debug": "npx playwright test --debug",
+    "testui": " npx playwright test --ui"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.44.1",
+    "@types/node": "^20.14.2"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "fs-extra": "^11.2.0"
+  }
+}
