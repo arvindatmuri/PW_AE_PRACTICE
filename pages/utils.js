@@ -10,7 +10,7 @@ const createJsonFileIfNotExists = async (data) => {
             await fs.writeJson(jsonFilePath, data, { spaces: 4 });
             console.log(`Created ${jsonFilePath} with default data.`);
         } else {
-            console.log(`${jsonFilePath} already exists.`);
+            // console.log(`${jsonFilePath} already exists.`);
             await fs.writeJson(jsonFilePath, data, { spaces: 4 });
         }
     } catch (err) {

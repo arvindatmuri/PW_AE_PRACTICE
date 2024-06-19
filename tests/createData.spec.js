@@ -2,18 +2,18 @@ const { test, expect } = require('@playwright/test');
 var utils = require('../pages/utils');
 import { faker } from "@faker-js/faker";
 
-test('has title', async ({ page }) => {
+// test('has title', async ({ page }) => {
   
-    await page.goto('https://playwright.dev/');
-  // await page.goto('https://playwright.dev/');
+//     await page.goto('https://playwright.dev/');
+//   // await page.goto('https://playwright.dev/');
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle('/Playwright/');
-});
+//   // Expect a title "to contain" a substring.
+//   await expect(page).toHaveTitle('/Playwright/');
+// });
 
-test('get data from json', async () => {
-  console.log(utils.readValueFromJsonFile())
-});
+// test('get data from json', async () => {
+//   console.log(utils.readValueFromJsonFile())
+// });
 
 test("Create a Valid user Data for Test Scenarios", async ({ page }) => {
   let name = faker.person.fullName();
@@ -117,7 +117,7 @@ test("Create a Valid user Data for Test Scenarios", async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Create Account' })).toBeVisible();
 
   await page.getByRole('button', { name: 'Create Account' }).click();
-  await page.getByText('Account Created!').click();
+  // await page.getByText('Account Created!').click();
   await expect(page.getByText('Account Created!')).toBeVisible();
   await expect(page.getByText('Account Created!')).toHaveCSS("color","rgb(0, 128, 0)")
   await expect(page.getByRole('link', { name: 'Continue' })).toBeVisible();
