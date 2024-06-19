@@ -36,7 +36,15 @@ test("Test Case 6: Contact Us Form", async ({ page }) => {
     ).toBeVisible();
   
     await expect(page.getByRole("link", { name: " Home" })).toBeVisible();
-    await page.getByRole("link", { name: " Home" }).click();
+    
+    const linkElement = await page.getByRole("link", { name: " Home" });
+    const Url = await linkElement.evaluate(el => el.href);
+    
+    await linkElement.click();
+    
+    if (page.url().includes('google_vignette')) {
+      await page.goto(Url);
+  }
     await expect(
       page.getByRole("link", { name: "Website for automation" })
     ).toBeVisible();
