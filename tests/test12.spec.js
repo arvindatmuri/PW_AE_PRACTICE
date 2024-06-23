@@ -12,7 +12,7 @@ test('Test Case 12: Add Products in Cart', async ({ page }) => {
     await test.step('Click on Products Link and Handle Ads', async () => {
         const linkElement = await page.getByRole('link', { name: ' Products' });
         const Url = await linkElement.evaluate(el => el.href);
-        console.log("URL:", Url);
+        console.log("URL:", Url); 
         await page.getByRole('link', { name: ' Products' }).click();
         if (page.url().includes('google_vignette')) {
             await page.goto(Url);
@@ -66,8 +66,4 @@ test('Test Case 12: Add Products in Cart', async ({ page }) => {
         await expect(page.locator(`#product-${i} > .cart_total > .cart_total_price`)).toBeVisible();
        }
     });
-
-//   await expect(page.locator('#product-1')).toContainText('Blue Top');
-//   await expect(page.locator('#product-1')).toContainText('Rs. 500');
-//   await expect(page.locator('#product-1')).toContainText('Rs. 500');
 });
