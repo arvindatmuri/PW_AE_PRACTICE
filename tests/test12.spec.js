@@ -22,6 +22,7 @@ test('Test Case 12: Add Products in Cart', async ({ page }) => {
     
     await test.step("Hover over first product and click 'Add to cart'", async () => {
         await page.locator('.productinfo > .btn').first().hover();
+        // await page.locator('.productinfo > .btn').nth(0).hover()
         await page.locator('.overlay-content > .btn').first().click();
     });
 

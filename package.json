@@ -9,7 +9,8 @@
     "testf": "npx playwright test --project=firefox --headed",
     "testw": "npx playwright test --project=firefox --headed",
     "debug": "npx playwright test --debug",
-    "testui": " npx playwright test --ui"
+    "testui": " npx playwright test --ui",
+    "report":"npx playwright show-report"
   },
   "keywords": [],
   "author": "",
