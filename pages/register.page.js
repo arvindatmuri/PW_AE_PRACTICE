@@ -24,7 +24,7 @@ exports.RegisterPage = class RegisterPage {
       this.passwordLabel = this.page.getByText('Password *');
       this.passwordField = this.page.getByLabel('Password *');
       
-      this.registerButton = this.page.getByRole('button', { name: 'Register' });
+      this.createAccountButton = this.page.getByRole('button', { name: 'Create Account' })
       
       this.dateOfBirthLabel = this.page.getByText('Date of Birth');
       this.dateOfBirthDaySelect = this.page.locator('#days');
@@ -49,6 +49,7 @@ exports.RegisterPage = class RegisterPage {
       
       this.addressLine1Label = this.page.getByText('Address * (Street address, P.');
       this.addressLine1Input = this.page.getByLabel('Address * (Street address, P.');
+      this.addressLine11PartColor = this.page.locator(".inline-infos");
       
       this.addressLine2Label = this.page.getByText('Address 2');
       this.addressLine2Input = this.page.getByLabel('Address 2');
@@ -67,6 +68,11 @@ exports.RegisterPage = class RegisterPage {
       
       this.mobileNumberLabel = this.page.getByText('Mobile Number *');
       this.mobileNumberInput = this.page.getByLabel('Mobile Number *');
+
+      this.accountCreatedHeading = this.page.getByText('Account Created!');
+      this.accountCreationContinueButton = this.page.getByRole('link', { name: 'Continue' })
+      this.loggedinHeader = page.locator('#header');
+      this.deleteAccount = page.getByRole('link', { name: ' Delete Account' });
     }
 
     async validateRegistrationPage() {
@@ -83,10 +89,19 @@ exports.RegisterPage = class RegisterPage {
       await expect(this.titleMrs).toBeVisible();
     }
 
+    async selectTitle(title) {
+      if(title === 'Mr.') {
+        await this.titleMr.click();
+      } else if (title === 'Mrs.') {
+        await this.titleMrs.click();
+      }
+    }
+
     async validateNameField() {
       await expect(this.nameLabel).toBeVisible();
       await expect(this.nameInput).toBeVisible();
     }
+    
 
     async validateNameValue(name){
       await expect(this.nameInput).toHaveValue(name);
@@ -105,6 +120,10 @@ exports.RegisterPage = class RegisterPage {
       await expect(this.passwordLabel).toBeVisible();
       await expect(this.passwordField).toBeVisible();
     }
+    async enterPassword(password) {
+      await this.passwordField.fill(password) 
+    }
+
 
     async validateDateOfBirth() {
       await expect(this.dateOfBirthLabel).toBeVisible();
@@ -113,14 +132,31 @@ exports.RegisterPage = class RegisterPage {
       await expect(this.dateOfBirthYearSelect).toBeVisible();
     }
 
+    async fillDateOfBirth(day, month, year) {
+      await this.dateOfBirthDaySelect.selectOption(day);
+      await this.dateOfBirthMonthSelect.selectOption(month);
+      await this.dateOfBirthYearSelect.selectOption(year);
+    }
+
     async validateNewsletter() {
       await expect(this.newsletterCheckbox).toBeVisible();
       await expect(this.newsletterCheckboxText).toBeVisible();
     }
 
+    async checkNewsletter(flag) {
+      if(flag === true) {
+        await this.newsletterCheckbox.check();
+      }
+    }
+
     async validateSpecialOffers() {
       await expect(this.specialOffersCheckbox).toBeVisible();
       await expect(this.specialOffersCheckboxText).toBeVisible();
+    }
+    async checkSpecialOffers(flag) {
+      if(flag === true) {
+        await this.specialOffersCheckbox.check();
+      }
     }
 
     async validateFirstName() {
@@ -128,9 +164,17 @@ exports.RegisterPage = class RegisterPage {
       await expect(this.firstNameInput).toBeVisible();
     }
 
+    async enterFirstName(firstName) {
+      await this.firstNameInput.fill(firstName);
+    }
+
     async validateLastName() {
       await expect(this.lastNameLabel).toBeVisible();
       await expect(this.lastNameInput).toBeVisible();
+    }
+
+    async enterLastName(lastName) {
+      await this.lastNameInput.fill(lastName);
     }
 
     async validateCompany() {
@@ -138,9 +182,15 @@ exports.RegisterPage = class RegisterPage {
       await expect(this.companyInput).toBeVisible();
     }
 
+    async enterCompany(company) {
+      await this.companyInput.fill(company);
+    }
+
     async validateAddress() {
+      await expect(this.addressInformationLabel).toBeVisible();
       await expect(this.addressLine1Label).toBeVisible();
       await expect(this.addressLine1Input).toBeVisible();
+      await expect(this.addressLine11PartColor).toHaveCSS("color","rgb(241, 51, 64)");
 
       await expect(this.addressLine2Label).toBeVisible();
       await expect(this.addressLine2Input).toBeVisible();
@@ -159,10 +209,29 @@ exports.RegisterPage = class RegisterPage {
 
     }
 
+    async fillAddress(addressLine1,addressLine2, country, state, city, zip) {
+      await this.addressLine1Input.fill(addressLine1);
+      await this.addressLine2Input.fill(addressLine2);
+      await this.countryInput.selectOption(country);
+      await this.stateInput.fill(state);
+      await this.cityInput.fill(city);
+      await this.zipCodeInput.fill(zip);
+      
+    }
+
+    async enterMobileNumber(mobileNumber) {
+      await this.mobileNumberInput.fill(mobileNumber);
+    }
+
     async validateMobileNumber() {
       await expect(this.mobileNumberLabel).toBeVisible();
       await expect(this.mobileNumberInput).toBeVisible();
     }
+
+    async validateCreateAccountButton() {
+      await expect(this.createAccountButton).toBeVisible();
+    }
+
 
     async validateRegistrationPageForm() {
       await this.validateRegistrationPage();
@@ -178,7 +247,45 @@ exports.RegisterPage = class RegisterPage {
       await this.validateCompany();
       await this.validateAddress();
       await this.validateMobileNumber();
+      await this.validateCreateAccountButton();
     }
+
+  async registerNewUser(name, email, password, day, month, year, firstName, lastName, company, addressLine1, addressLine2, country, state, city, zip, mobileNumber) {
+    await this.validateNameValue(name);
+    await this.validateEmailValue(email);
+    await this.enterPassword(password);
+    await this.fillDateOfBirth(day, month, year);
+    await this.checkNewsletter(true);
+    await this.checkSpecialOffers(true);
+    await this.enterFirstName(firstName);
+    await this.enterLastName(lastName);
+    await this.enterCompany(company);
+    await this.fillAddress(addressLine1, addressLine2, country, state, city, zip);
+    await this.enterMobileNumber(mobileNumber);
+    await this.createAccountButton.click();
+  }
+
+  async validateAccountCreation() {
+    await expect(this.accountCreatedHeading).toBeVisible();
+    await expect(this.accountCreatedHeading).toHaveCSS("color","rgb(0, 128, 0)")
+    await expect(this.accountCreationContinueButton).toBeVisible();
+    // await expect(this.loggedinHeader).toContainText('Logged in as');
+    // await expect(this.deleteAccount).toBeVisible();
+  }
+
+  async clickOnContinueButton() {
+    await this.accountCreationContinueButton.click();
+  }
+
+  async validateLoggedinAs() {
+    await expect(this.loggedinHeader).toContainText('Logged in as');
+  }
+
+  async validateDeleteAccount() {
+    await expect(this.deleteAccount).toBeVisible();
+  }
+
+    
 
     
   }

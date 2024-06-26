@@ -12,6 +12,7 @@ test("Test Case 1: Register User", async ({ page }) => {
   let city = faker.location.city();
   let zip = faker.location.zipCode()
   let mobile_number = faker.phone.number()
+  
 
   await page.goto("https://automationexercise.com/");
   await expect(
@@ -103,7 +104,6 @@ test("Test Case 1: Register User", async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Create Account' })).toBeVisible();
 
   await page.getByRole('button', { name: 'Create Account' }).click();
-  await page.getByText('Account Created!').click();
   await expect(page.getByText('Account Created!')).toBeVisible();
   await expect(page.getByText('Account Created!')).toHaveCSS("color","rgb(0, 128, 0)")
   await expect(page.getByRole('link', { name: 'Continue' })).toBeVisible();

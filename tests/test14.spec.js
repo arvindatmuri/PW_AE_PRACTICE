@@ -10,15 +10,22 @@ import { faker } from "@faker-js/faker";
 
 test("Test Case 14: Place Order: Register while Checkout", async ({ page }) => {
     let name = faker.person.fullName();
-    let firstname = faker.person.firstName();
-    let lastname = faker.person.lastName()
+    let firstName = faker.person.firstName();
+    let lastName = faker.person.lastName()
     let email = faker.internet.email();
     let company = faker.company.name();
     let address = faker.location.streetAddress();
     let state = faker.location.state();
     let city = faker.location.city();
     let zip = faker.location.zipCode()
-    let mobile_number = faker.phone.number()
+    let mobileNumber = faker.phone.number()
+    let address2 = "UNIT 7777";
+    let country = "United States";
+    let password = "Password@123";
+    let day = "30";
+    let month = "3";
+    let year = "1927";
+
     const register = new RegisterPage(page);
     const home = new HomePage(page);
     const products = new ProductsPage(page);
@@ -66,7 +73,27 @@ test("Test Case 14: Place Order: Register while Checkout", async ({ page }) => {
 
     await test.step("Register with Data", async () => {
         await register.validateRegistrationPageForm();
-        // await register.registerNewUser(firstname, lastname, email, company, address, state, city, zip, mobile_number);
+        await register.registerNewUser(name, email, password, day, month, year, firstName, lastName, company, address, address2, country, state, city, zip, mobileNumber);
+    });
+
+    await test.step("Verify 'ACCOUNT CREATED!' and click 'Continue' button", async () => {
+        await register.validateAccountCreation();
+        await register.clickOnContinueButton();
+    });
+
+    await test.step("Verify 'Logged in as' and 'Delete Account' button", async () => {
+        await register.validateLoggedInAs();
+        await register.validateDeleteAccount();
+    });
+
+    await test.step("Click 'Cart' button", async () => {
+        await cart.clickOnCartButton();
+         
+     });
+
+     await test.step("Click Proceed To Checkout", async () => {
+        await cart.validateProceedToCheckoutButton();
+        await cart.clickOnProceedToCheckoutButton();
     });
 
 
