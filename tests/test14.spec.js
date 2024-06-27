@@ -96,6 +96,12 @@ test("Test Case 14: Place Order: Register while Checkout", async ({ page }) => {
         await cart.clickOnProceedToCheckoutButton();
     });
 
+    await test.step("Verify Address Details and Review Your Order", async () => {
+        await cart.validateProceedToCheckoutButton();
+        await cart.clickOnProceedToCheckoutButton();
+    });
+
+
 
 
 });     

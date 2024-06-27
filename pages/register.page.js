@@ -83,9 +83,19 @@ exports.RegisterPage = class RegisterPage {
       await this.firstNameField.fill(firstName)
     }
 
+    /**
+     * Validates that the title element, Mr. and Mrs. options are visible.
+     * 
+     * @returns {Promise<void>} - A promise that resolves when all the elements are visible.
+     */
     async validateTitle() {
+      // Expect the title element to be visible
       await expect(this.titleElement).toBeVisible();
+      
+      // Expect the Mr. option to be visible
       await expect(this.titleMr).toBeVisible();
+      
+      // Expect the Mrs. option to be visible
       await expect(this.titleMrs).toBeVisible();
     }
 
