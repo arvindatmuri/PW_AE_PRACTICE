@@ -4,3 +4,4 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 data.json
+tests/visual.spec.js-snapshots/Visual-test-1-chromium-win32.png
