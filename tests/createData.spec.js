@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-var utils = require('../pages/utils');
+// var utils = require('../pages/utils');
 import { faker } from "@faker-js/faker";
 
 // test('has title', async ({ page }) => {
@@ -125,5 +125,5 @@ test("Create a Valid user Data for Test Scenarios", async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Website for automation' })).toBeVisible();
 
   await expect(page.locator('#header')).toContainText('Logged in as');
-  utils.createJsonFileIfNotExists({"email": email});
+  // utils.createJsonFileIfNotExists({"email": email});
 });

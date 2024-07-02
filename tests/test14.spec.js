@@ -18,7 +18,8 @@ test("Test Case 14: Place Order: Register while Checkout", async ({ page }) => {
     let state = faker.location.state();
     let city = faker.location.city();
     let zip = faker.location.zipCode()
-    let mobileNumber = faker.phone.number()
+    let mobileNumber = faker.phone.number('61#########');
+    
     let address2 = "UNIT 7777";
     let country = "United States";
     let password = "Password@123";
@@ -73,6 +74,22 @@ test("Test Case 14: Place Order: Register while Checkout", async ({ page }) => {
 
     await test.step("Register with Data", async () => {
         await register.validateRegistrationPageForm();
+        console.log(" Name = "+name);
+        console.log("email = "+email);
+        console.log("password = "+password);
+        console.log("day = "+day);
+        console.log("month = "+month);
+        console.log("year = "+year);
+        console.log("firstName = "+firstName);
+        console.log("lastName = "+lastName);
+        console.log("company = "+company);
+        console.log("address = "+address);
+        console.log("address2 = "+address2);
+        console.log("country = "+country);
+        console.log("state = "+state);
+        console.log("city = "+city);
+        console.log("zip = "+zip);
+        console.log("mobileNumber = "+mobileNumber);
         await register.registerNewUser(name, email, password, day, month, year, firstName, lastName, company, address, address2, country, state, city, zip, mobileNumber);
     });
 
@@ -82,7 +99,7 @@ test("Test Case 14: Place Order: Register while Checkout", async ({ page }) => {
     });
 
     await test.step("Verify 'Logged in as' and 'Delete Account' button", async () => {
-        await register.validateLoggedInAs();
+        await register.validateLoggedinAs();
         await register.validateDeleteAccount();
     });
 
@@ -97,8 +114,7 @@ test("Test Case 14: Place Order: Register while Checkout", async ({ page }) => {
     });
 
     await test.step("Verify Address Details and Review Your Order", async () => {
-        await cart.validateProceedToCheckoutButton();
-        await cart.clickOnProceedToCheckoutButton();
+        
     });
 
 

@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-var utils = require('../pages/utils');
+// var utils = require('../pages/utils');
 
 test("Test Case 7: Verify Test Cases Page", async ({ page }) => {
     await page.goto('https://automationexercise.com/');
