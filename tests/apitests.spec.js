@@ -71,11 +71,11 @@ test('API 5: POST To Search Product', async ({ request }) => {
     //   expect(resp.status()).toBe(200);
 });
 
-// test('API 6: POST To Search Product without search_product parameter', async ({ request }) => {
-//     const resp = await request.fetch(`/searchProduct`, {
-//         method: 'POST',
-//     });
-//     console.log(resp.statusText());
-//     console.log(resp.status());
-//     expect(resp.status()).toBe(403);
-// });
+test('API 6: POST To Search Product without search_product parameter', async ({ request }) => {
+    const resp = await request.fetch(`/searchProduct`, {
+        method: 'POST',
+    });
+    console.log(resp.statusText());
+    console.log(resp.status());
+    expect(resp.status()).toBe(403);
+});
