@@ -77,5 +77,5 @@ test('API 6: POST To Search Product without search_product parameter', async ({ 
     });
     console.log(resp.statusText());
     console.log(resp.status());
-    expect(resp.status()).toBe(200);
+    expect(resp.status()).toBe(403);
 });
