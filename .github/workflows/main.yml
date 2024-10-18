@@ -1,0 +1,49 @@
+name: Playwright Tests
+
+# Controls when the action will run. It will run on every push or pull request.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# The jobs to run as part of the workflow.
+jobs:
+  test:
+    runs-on: self-hosted  # Use the latest version of Ubuntu as the runner
+
+    # Set up the steps
+    steps:
+      # Step 1: Check out the code from the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js with the specified version
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'  # Use the Node.js version you're working with
+
+      # Step 3: Install dependencies (this will install Playwright along with other project dependencies)
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Install Playwright browsers (required for Playwright to run tests)
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      # Step 5: Run the Playwright tests
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      # Optional Step: Upload Playwright test results (screenshots, videos) as artifacts
+      - name: Upload Playwright test results
+        if: always()  # This ensures the step runs even if the tests fail
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-results
+          path: |
+            playwright-report  # Adjust this path based on your project’s Playwright report path
+            tests-output       # Include screenshots or videos if needed
